@@ -1,0 +1,35 @@
+import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.*;
+import java.math.*;
+
+public class Server extends Thread
+{
+	@Override
+	public void run() {
+		try {
+			ServerSocket ss = new ServerSocket(234);
+			int idPlayer=0;
+			int secretNumber = (int)(Math.random()*100);
+			List<Game> allPlayer = new ArrayList<>();
+			while(true){
+				System.out.println("Server is listening...");
+				Socket socket = ss.accept();
+				++idPlayer;
+				Game player = new Game(socket, idPlayer, secretNumber);
+				allPlayer.add(player);
+				player.start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//-----------------------
+	public static void main(String[] args) {
+		Server play = new Server();
+		play.start();
+		
+	}
+
+}

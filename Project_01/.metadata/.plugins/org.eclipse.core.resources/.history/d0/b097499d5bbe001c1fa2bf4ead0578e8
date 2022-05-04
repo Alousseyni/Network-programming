@@ -1,0 +1,53 @@
+import java.io.*;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ServerGame extends Thread 
+{
+	
+	@Override
+	public void run() 
+	{
+		try {
+			ServerSocket ss = new ServerSocket(234);
+			int idPlayer=0;
+			int secretNumber = (int)(Math.random()*100);
+			while(true){
+				System.out.println("Server is listening...");
+				Socket socket = ss.accept();
+				++idPlayer;
+				Player player = new Player(socket, idPlayer, secretNumber);
+				player.start();
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	class Player extends Thread
+	{
+				  protected	Socket socket;
+				  protected int idPlayer;
+				  protected int secretNumber;
+				  protected String WinnerIP;
+				  protected int WinnerID;
+				  protected int numberOfPlayer=0;
+				  protected boolean  END_OF_GAME=false;
+
+				// constructor
+				public Player(Socket socket, int idPlayer, int secretNumber) {
+					super();
+					this.socket = socket;
+					this.idPlayer = idPlayer;
+					this.secretNumber = secretNumber;
+					this.numberOfPlayer++;
+				}
+				
+	}
+	//------------------
+	public static void main(String[] args) {
+	 new ServerGame().start();
+	}
+
+}

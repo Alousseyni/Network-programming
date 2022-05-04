@@ -1,0 +1,16 @@
+import java.io.*;
+import java.net.*;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception	
+	{
+		Socket clientSocket = new Socket("127.0.0.1",1234);
+		InputStream os = clientSocket.getInputStream();
+		if(clientSocket.isConnected()) {
+			System.out.println("Connection to the server successly");
+		}
+		//FileOutputStream fout =
+	}
+
+}
